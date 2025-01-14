@@ -1,0 +1,28 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/orders.css">
+    <link rel="stylesheet" href="/css/main.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (orders.length <= 0) { %>
+                <h1>Nothing there!</h1>
+            <% } else { %>
+                <ul class="orders">
+                    <% orders.forEach(order => { %>
+                        <li class="orders__item">
+                            <h1>Order No. - # <%= order._id %></h1>
+                            <h4>Order Date -  <%=date.toLocaleDateString() %></h4>
+                            <ul class="orders__products">
+                                <% order.products.forEach(p => { %>
+                                    <li class="orders__products-item"><%= p.product.title %> (Quantity-<%= p.quantity %>)</li>
+                                    <% }); %>
+                                <div> <a href="/orders/<%=order._id%>" class="btn">Invoice</a> </div>
+                            </ul>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </main>
+        <%- include('../includes/end.ejs') %>
